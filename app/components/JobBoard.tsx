@@ -48,23 +48,34 @@ export default function JobBoard({ jobs }: { jobs: Job[] }) {
     setFilteredJobs(updatedJobs); // alternative seems to be using useMemo
   }, [jobs, departmentFilter, locationFilter, typeFilter, searchTerm]);
 
+  const jobsByDepartment: Record<string, Job[]> = {};
+
+  for (const job of filteredJobs) {
+    if (!jobsByDepartment[job.department]) {
+      jobsByDepartment[job.department] = [];
+    }
+    jobsByDepartment[job.department].push(job);
+  }
+
   return (
     <>
-      <Header />
-      <JobFilter
-        departmentFilter={departmentFilter}
-        setDepartmentFilter={setDepartmentFilter}
-        locationFilter={locationFilter}
-        setLocationFilter={setLocationFilter}
-        typeFilter={typeFilter}
-        setTypeFilter={setTypeFilter}
-        searchTerm={searchTerm}
-        setSearchTerm={setSearchTerm}
-        departments={departments}
-        locations={locations}
-        types={types}
-      />
-      <JobList jobs={filteredJobs} />
+      <div className="pl-8 md:pl-32 lg:pl-40">
+        <Header />
+        <JobFilter
+          departmentFilter={departmentFilter}
+          setDepartmentFilter={setDepartmentFilter}
+          locationFilter={locationFilter}
+          setLocationFilter={setLocationFilter}
+          typeFilter={typeFilter}
+          setTypeFilter={setTypeFilter}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          departments={departments}
+          locations={locations}
+          types={types}
+        />
+        <JobList jobsByDepartment={jobsByDepartment} />
+      </div>
     </>
   );
 }
