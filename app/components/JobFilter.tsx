@@ -15,7 +15,7 @@ export default function JobFilter({
 }: JobFilterProps) {
   return (
     <div className="flex flex-col md:flex-row gap-4 md:justify-between mb-6">
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-8">
         <div className="relative center flex">
           <select
             value={departmentFilter}
