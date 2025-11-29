@@ -15,9 +15,9 @@ export default function JobBoard({ jobs }: { jobs: Job[] }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   // extract unique deparments, locations, types from jobs list
-  const departments = ["All", ...new Set(jobs.map((job) => job.department))];
-  const locations = ["All", ...new Set(jobs.flatMap((job) => job.location))]; // flatten array of arrays
-  const types = ["All", ...new Set(jobs.map((job) => job.type))];
+  const departments = [...new Set(jobs.map((job) => job.department))];
+  const locations = [...new Set(jobs.flatMap((job) => job.location))]; // flatten array of arrays
+  const types = [...new Set(jobs.map((job) => job.type))];
 
   // pass down filter states, setters, and all lists to Filter component
   useEffect(() => {
