@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import JobFilter from "./JobFilter";
 import JobList from "./JobList";
 import { Job } from "./types";
+import Header from "./Header";
 
 // receive jobs as props
 export default function JobBoard({ jobs }: { jobs: Job[] }) {
@@ -49,6 +50,7 @@ export default function JobBoard({ jobs }: { jobs: Job[] }) {
 
   return (
     <>
+      <Header />
       <JobFilter
         departmentFilter={departmentFilter}
         setDepartmentFilter={setDepartmentFilter}
