@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import JobFilter from "./JobFilter";
+import JobList from "./JobList";
 import { Job } from "./types";
 
 // receive jobs as props
@@ -12,6 +13,11 @@ export default function JobBoard({ jobs }: { jobs: Job[] }) {
   const [locationFilter, setLocationFilter] = useState("All");
   const [typeFilter, setTypeFilter] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
+
+  // extract unique deparments, locations, types from jobs list
+  const departments = ["All", ...new Set(jobs.map((job) => job.department))];
+  const locations = ["All", ...new Set(jobs.flatMap((job) => job.location))]; // flatten array of arrays
+  const types = ["All", ...new Set(jobs.map((job) => job.type))];
 
   // pass down filter states, setters, and all lists to Filter component
   useEffect(() => {
@@ -42,17 +48,21 @@ export default function JobBoard({ jobs }: { jobs: Job[] }) {
   }, [jobs, departmentFilter, locationFilter, typeFilter, searchTerm]);
 
   return (
-    <JobFilter
-      jobs={jobs}
-      filteredJobs={filteredJobs}
-      departmentFilter={departmentFilter}
-      setDepartmentFilter={setDepartmentFilter}
-      locationFilter={locationFilter}
-      setLocationFilter={setLocationFilter}
-      typeFilter={typeFilter}
-      setTypeFilter={setTypeFilter}
-      searchTerm={searchTerm}
-      setSearchTerm={setSearchTerm}
-    />
+    <>
+      <JobFilter
+        departmentFilter={departmentFilter}
+        setDepartmentFilter={setDepartmentFilter}
+        locationFilter={locationFilter}
+        setLocationFilter={setLocationFilter}
+        typeFilter={typeFilter}
+        setTypeFilter={setTypeFilter}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        departments={departments}
+        locations={locations}
+        types={types}
+      />
+      <JobList jobs={filteredJobs} />
+    </>
   );
 }
