@@ -57,4 +57,4 @@ Job data is fetched from a [GitHub Gist](https://gist.githubusercontent.com/lizz
 
 ## Deployment
 
-Deployed on [Vercel](https://vercel.com/).
+Deployed on [Vercel](https://job-search-ten-orcin.vercel.app/).
